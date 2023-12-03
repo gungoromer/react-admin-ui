@@ -7,7 +7,7 @@ type Props = {
 };
 
 const DropdownButton = (props: Props) => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(true);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
     <div className="dropdown">
