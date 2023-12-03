@@ -1,6 +1,6 @@
 @import "src/styles/global.scss";
 .login {
-  display: abosulte;
+  display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
@@ -21,7 +21,11 @@
       text-align: center;
     }
   }
-
+  .errorMessage {
+    display: flex;
+    color: #ff0000;
+    justify-content: center;
+  }
   form {
     display: flex;
     flex-direction: column;

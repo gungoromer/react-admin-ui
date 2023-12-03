@@ -1,7 +1,9 @@
-import axios, { AxiosResponse } from "axios";
 import "./Login.scss";
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
+import UserRepository from "../../shared/Api/User/UserRepository";
+import { BaseResponse } from "../../shared/Api/Abstract/BaseResponse";
+import { IUserLoginResponse } from "../../shared/Api/User/Response/IUserLoginResponse";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -16,57 +18,34 @@ const Login = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  type User = {
-    Id: number;
-    Name: string;
-    Surname: string;
-    Mail: string;
-    Token: string;
-  };
-
-  type LoginResponse = {
-    Status: number;
-    Message: string;
-    Value: User;
-  };
-
-  const handleFormSubmit = async (e) => {
+  const handleFormSubmit = async (e: any) => {
     e.preventDefault();
 
-    await axios
-      .post("https://api-dev.wsrlife.com/api/user/login/email", {
-        mail: formData.mail,
-        password: formData.password,
-      })
-      .then((res: AxiosResponse<LoginResponse>) => {
-        console.log(res);
+    const repository: UserRepository = new UserRepository();
 
-        if (res.data.Status == 0) {
-          setErrorMessage(res.data.Message);
+    await repository
+      .login(formData.mail, formData.password)
+      .then((response: BaseResponse<IUserLoginResponse>) => {
+        console.log("login page then");
+        console.log(response);
+
+        if (response.Status == 0) {
+          setErrorMessage(response.Message ? response.Message : "");
           return;
         }
 
         localStorage.setItem(
           "loggedUserName",
-          res.data.Value.Name + " " + res.data.Value.Surname
+          response.Value?.Name + " " + response.Value?.Surname
         );
-        localStorage.setItem("token", res.data.Value.Token);
-
-        setErrorMessage(res.data.Message);
-        setUser(res.data.Value);
-      })
-      .catch((err) => {
-        console.log(err);
-        var errorMessage = "";
-        if (err.response.status === 400) {
-          errorMessage += err.code;
+        if (response.Value?.Token) {
+          localStorage.setItem("token", response.Value?.Token);
         }
 
-        if (err.response.data) {
-          errorMessage += err.response.data.title;
+        setErrorMessage(response.Message ? response.Message : "");
+        if (response.Value) {
+          setUser(response.Value);
         }
-
-        setErrorMessage(errorMessage);
       });
   };
   return (
@@ -75,7 +54,7 @@ const Login = () => {
         <img src="/logo.svg" alt="" />
         <h1>Login Page</h1>
       </div>
-      {errorMessage && <p>{errorMessage}</p>}
+      {errorMessage && <p className="errorMessage">{errorMessage}</p>}
       {user && <Navigate to="/" />}
 
       <form action="" onSubmit={handleFormSubmit}>
