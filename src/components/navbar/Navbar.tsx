@@ -3,6 +3,8 @@ import "./navbar.scss";
 import DropdownButton from "../dropdownbutton/DropdownButton";
 
 const Navbar = () => {
+  const loggedUserName = localStorage.getItem("loggedUserName");
+
   const handleFullscreen = () => {
     fscreen.requestFullscreen(document.documentElement);
   };
@@ -11,7 +13,7 @@ const Navbar = () => {
     <div className="navbar">
       <div className="logo">
         <img src="logo.svg" alt="" />
-        <span>gungoromer</span>
+        <span>React Demo</span>
       </div>
       <div className="icons">
         <img
@@ -21,7 +23,7 @@ const Navbar = () => {
           onClick={handleFullscreen}
         />
         <DropdownButton
-          dropdownButtonText="Ömer GÜNGÖR"
+          dropdownButtonText={loggedUserName ? loggedUserName : "User"}
           dropdownButtonImgSrc="https://images.pexels.com/photos/11038549/pexels-photo-11038549.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
         ></DropdownButton>
       </div>

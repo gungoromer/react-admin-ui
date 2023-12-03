@@ -2,11 +2,12 @@
 .dropdown {
   display: flex;
   flex-direction: column;
+  min-width: 125px;
 
   .dropbtn {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: first baseline;
     cursor: pointer;
 
     img {
