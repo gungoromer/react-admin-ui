@@ -52,7 +52,7 @@ export abstract class BaseRepository
   public async getMany<T>(): Promise<BaseResponse<T[]>> {
     const instance = this.createInstance();
     const result = await instance
-      .get(`${this.CURRENT_BASE_URL}/${this.collection}`)
+      .get(`${this.CURRENT_BASE_URL}/${this.collection}?skip=0&take=1000`)
       .then((response) => {
         console.log("baserepository response");
         console.log(response);

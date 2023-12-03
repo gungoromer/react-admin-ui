@@ -1,8 +1,4 @@
-import {
-  DataGrid,
-  GridColDef,
-  GridToolbar,
-} from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import "./dataTable.scss";
 import { Link } from "react-router-dom";
 // import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -14,21 +10,6 @@ type Props = {
 };
 
 const DataTable = (props: Props) => {
-
-  // TEST THE API
-
-  // const queryClient = useQueryClient();
-  // // const mutation = useMutation({
-  // //   mutationFn: (id: number) => {
-  // //     return fetch(`http://localhost:8800/api/${props.slug}/${id}`, {
-  // //       method: "delete",
-  // //     });
-  // //   },
-  // //   onSuccess: ()=>{
-  // //     queryClient.invalidateQueries([`all${props.slug}`]);
-  // //   }
-  // // });
-
   const handleDelete = (id: number) => {
     //delete the item
     // mutation.mutate(id)
@@ -41,7 +22,7 @@ const DataTable = (props: Props) => {
     renderCell: (params) => {
       return (
         <div className="action">
-          <Link to={`/${props.slug}/${params.row.id}`}>
+          <Link to={`/${props.slug}/${params.row.Id}`}>
             <img src="/view.svg" alt="" />
           </Link>
           <div className="delete" onClick={() => handleDelete(params.row.id)}>
@@ -55,6 +36,7 @@ const DataTable = (props: Props) => {
   return (
     <div className="dataTable">
       <DataGrid
+        getRowId={(row) => row.Id}
         className="dataGrid"
         rows={props.rows}
         columns={[...props.columns, actionColumn]}

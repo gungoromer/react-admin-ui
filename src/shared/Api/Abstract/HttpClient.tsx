@@ -10,34 +10,34 @@ export abstract class HttpClient {
         "Content-Type": "application/json",
       },
     });
-    //this.initializeResponseInterceptor();
+    this.initializeResponseInterceptor();
     return this.instance;
   }
 
-  // private initializeResponseInterceptor = () => {
-  //   this.instance?.interceptors.response.use(
-  //     function (response) {
-  //       console.log("interceptors response");
-  //       console.log(response);
-  //       // Any status code that lie within the range of 2xx cause this function to trigger
-  //       // Do something with response data
-  //       return response;
-  //     },
-  //     function (error) {
-  //       console.log("interceptors error");
-  //       console.log(error);
-  //       // Any status codes that falls outside the range of 2xx cause this function to trigger
-  //       // Do something with response error
-  //       return Promise.reject(error);
-  //     }
-  //   );
+  private initializeResponseInterceptor = () => {
+    // this.instance?.interceptors.response.use(
+    //   function (response) {
+    //     console.log("interceptors response");
+    //     console.log(response);
+    //     // Any status code that lie within the range of 2xx cause this function to trigger
+    //     // Do something with response data
+    //     return response;
+    //   },
+    //   function (error) {
+    //     console.log("interceptors error");
+    //     console.log(error);
+    //     // Any status codes that falls outside the range of 2xx cause this function to trigger
+    //     // Do something with response error
+    //     return Promise.reject(error);
+    //   }
+    // );
 
-  //   const token = localStorage.getItem("jwtToken");
-  //   this.instance?.interceptors.request.use((config: any) => {
-  //     config.headers = {
-  //       Authorization: `Bearer ${token}`,
-  //     };
-  //     return config;
-  //   });
-  // };
+    const token = localStorage.getItem("token");
+    this.instance?.interceptors.request.use((config: any) => {
+      config.headers = {
+        Authorization: `Bearer ${token}`,
+      };
+      return config;
+    });
+  };
 }

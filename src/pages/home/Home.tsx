@@ -1,8 +1,8 @@
-import BarChartBox from "../../components/barChartBox/BarChartBox";
-import BigChartBox from "../../components/bigChartBox/BigChartBox";
+import BarChartBox from "../../components/barchartbox/BarChartBox";
+import BigChartBox from "../../components/bigchartbox/BigChartBox";
 import ChartBox from "../../components/chartBox/ChartBox";
 import PieChartBox from "../../components/pieCartBox/PieChartBox";
-import TopBox from "../../components/topBox/TopBox";
+import TopBox from "../../components/topbox/TopBox";
 import {
   barChartBoxRevenue,
   barChartBoxVisit,
@@ -11,9 +11,20 @@ import {
   chartBoxRevenue,
   chartBoxUser,
 } from "../../data";
+import { BaseResponse } from "../../shared/Api/Abstract/BaseResponse";
+import { IUserGetResponse } from "../../shared/Api/User/Response/IUserGetResponse";
+import UserRepository from "../../shared/Api/User/UserRepository";
 import "./home.scss";
 
 const Home = () => {
+  const repository: UserRepository = new UserRepository();
+
+  const result = repository
+    .getMany<IUserGetResponse>()
+    .then((response: BaseResponse<IUserGetResponse[]>) => {
+      console.log("users page then");
+      console.log(response);
+    });
   return (
     <div className="home">
       <div className="box box1">

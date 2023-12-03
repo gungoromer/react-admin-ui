@@ -18,7 +18,6 @@ const MainLayout = () => {
           <Menu />
         </div>
         <div className="contentContainer">
-          asd
           <Outlet />
         </div>
       </div>
