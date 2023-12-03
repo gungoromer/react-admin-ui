@@ -1,8 +1,8 @@
-import BarChartBox from "../../components/barchartbox/BarChartBox";
-import BigChartBox from "../../components/bigchartbox/BigChartBox";
-import ChartBox from "../../components/cartbox/ChartBox";
-import PieChartBox from "../../components/piechartbox/PieChartBox";
-import TopBox from "../../components/topbox/TopBox";
+import BarChartBox from "../../components/barChartBox/BarChartBox";
+import BigChartBox from "../../components/bigChartBox/BigChartBox";
+import ChartBox from "../../components/chartBox/ChartBox";
+import PieChartBox from "../../components/pieCartBox/PieChartBox";
+import TopBox from "../../components/topBox/TopBox";
 import {
   barChartBoxRevenue,
   barChartBoxVisit,
@@ -11,37 +11,37 @@ import {
   chartBoxRevenue,
   chartBoxUser,
 } from "../../data";
-import "./Home.scss";
+import "./home.scss";
 
 const Home = () => {
   return (
     <div className="home">
       <div className="box box1">
-        <TopBox></TopBox>
+        <TopBox />
       </div>
       <div className="box box2">
-        <ChartBox {...chartBoxUser}></ChartBox>
+        <ChartBox {...chartBoxUser} />
       </div>
       <div className="box box3">
-        <ChartBox {...chartBoxProduct}></ChartBox>
+        <ChartBox {...chartBoxProduct} />
       </div>
       <div className="box box4">
-        <PieChartBox></PieChartBox>
+        <PieChartBox />
       </div>
       <div className="box box5">
-        <ChartBox {...chartBoxConversion}></ChartBox>
+        <ChartBox {...chartBoxConversion} />
       </div>
       <div className="box box6">
-        <ChartBox {...chartBoxRevenue}></ChartBox>
+        <ChartBox {...chartBoxRevenue} />
       </div>
       <div className="box box7">
-        <BigChartBox></BigChartBox>
+        <BigChartBox />
       </div>
       <div className="box box8">
-        <BarChartBox {...barChartBoxVisit}></BarChartBox>
+        <BarChartBox {...barChartBoxVisit} />
       </div>
       <div className="box box9">
-        <BarChartBox {...barChartBoxRevenue}></BarChartBox>
+        <BarChartBox {...barChartBoxRevenue} />
       </div>
     </div>
   );

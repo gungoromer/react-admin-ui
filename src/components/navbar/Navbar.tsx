@@ -1,11 +1,11 @@
-import "./Navbar.scss";
+import "./navbar.scss";
 
 const Navbar = () => {
   return (
     <div className="navbar">
       <div className="logo">
-        <img src="logo.svg" alt=""></img>
-        <span>gungoromer</span>
+        <img src="logo.svg" alt="" />
+        <span>lamadmin</span>
       </div>
       <div className="icons">
         <img src="/search.svg" alt="" className="icon" />
@@ -22,7 +22,7 @@ const Navbar = () => {
           />
           <span>Jane</span>
         </div>
-        <img src="/setting.svg" alt="" className="icon" />
+        <img src="/settings.svg" alt="" className="icon" />
       </div>
     </div>
   );
