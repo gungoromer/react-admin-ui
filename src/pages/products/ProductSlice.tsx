@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
+import { BaseResponse } from "../../shared/Api/Abstract/BaseResponse";
 
 export interface ProductCategory {
   Id: string;
@@ -16,32 +17,46 @@ export interface Product {
   IsActive: boolean;
   ProductCategory: ProductCategory;
 }
+export interface ProductState {
+  loading: boolean;
+  products: Array<Product>;
+  error: string | undefined;
+}
+const initialState: ProductState = {
+  loading: false,
+  products: [],
+  error: undefined,
+};
 
-const initialState: Array<Product> = [
-  {
-    Id: "1",
-    Title: "Product1",
-    Subtitle: "Product1",
-    ListPrice: "100",
-    Price: "100",
-    Barcode: "123456789",
-    IsActive: true,
-    ProductCategory: {
-      Id: "1",
-      Name: "Category1",
-      IsActive: true,
-    },
-  },
-];
+export const fetchProducts = createAsyncThunk("products/fetchProducts", () => {
+  const res = fetch(
+    "https://api-dev.wsrlife.com/api/product?skip=0&take=1000"
+  ).then((data) => data.json());
+
+  return res;
+});
+
 export const productSlice = createSlice({
   name: "products",
   initialState,
-  reducers: {
-    addProduct: (state, action: PayloadAction<Product>) => {
-      state.push(action.payload);
-    },
+  extraReducers: (builder) => {
+    builder.addCase(fetchProducts.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(
+      fetchProducts.fulfilled,
+      (state, action: PayloadAction<BaseResponse<Array<Product>>>) => {
+        state.loading = false;
+        state.products = action.payload.Value;
+      }
+    );
+    builder.addCase(fetchProducts.rejected, (state, action) => {
+      state.loading = false;
+      state.products = [];
+      state.error = action.error.message;
+    });
   },
+  reducers: {},
 });
-export const { addProduct } = productSlice.actions;
 export const productSelector = (state: RootState) => state.productReducer;
 export default productSlice.reducer;
