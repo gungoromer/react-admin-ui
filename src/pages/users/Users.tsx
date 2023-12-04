@@ -1,7 +1,7 @@
 import { GridColDef } from "@mui/x-data-grid";
 import DataTable from "../../components/dataTable/DataTable";
 import "./Users.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Add from "../../components/add/Add";
 import UserRepository from "../../shared/Api/User/UserRepository";
 import { IUserGetResponse } from "../../shared/Api/User/Response/IUserGetResponse";
@@ -57,13 +57,15 @@ const Users = () => {
 
   const repository: UserRepository = new UserRepository();
 
-  const result = repository
-    .getMany<IUserGetResponse>()
-    .then((response: BaseResponse<IUserGetResponse[]>) => {
-      console.log("users page then");
-      console.log(response);
-      setData(response.Value);
-    });
+  useEffect(() => {
+    repository
+      .getMany<IUserGetResponse>(0, 1000)
+      .then((response: BaseResponse<IUserGetResponse[]>) => {
+        if (response.Status == 1) {
+          setData(response.Value ?? []);
+        }
+      });
+  }, []);
 
   return (
     <div className="users">

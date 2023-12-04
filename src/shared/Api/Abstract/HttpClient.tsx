@@ -5,7 +5,7 @@ export abstract class HttpClient {
 
   protected createInstance(): AxiosInstance {
     this.instance = axios.create({
-      baseURL: "https://api-dev.wsrlife.com/api",
+      baseURL: `${import.meta.env.VITE_BASE_URL}`,
       headers: {
         "Content-Type": "application/json",
       },

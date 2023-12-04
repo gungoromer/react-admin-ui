@@ -15,7 +15,7 @@ class UserRepository extends BaseRepository {
     console.log("login");
     const instance = super.createInstance();
     const result = await instance
-      .post(`${this.CURRENT_BASE_URL}/${this.collection}/login/email`, {
+      .post(`/${this.collection}/login/email`, {
         mail,
         password,
       })
