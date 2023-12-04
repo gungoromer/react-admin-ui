@@ -11,20 +11,9 @@ import {
   chartBoxRevenue,
   chartBoxUser,
 } from "../../data";
-import { BaseResponse } from "../../shared/Api/Abstract/BaseResponse";
-import { IUserGetResponse } from "../../shared/Api/User/Response/IUserGetResponse";
-import UserRepository from "../../shared/Api/User/UserRepository";
 import "./home.scss";
 
 const Home = () => {
-  const repository: UserRepository = new UserRepository();
-
-  const result = repository
-    .getMany<IUserGetResponse>()
-    .then((response: BaseResponse<IUserGetResponse[]>) => {
-      console.log("users page then");
-      console.log(response);
-    });
   return (
     <div className="home">
       <div className="box box1">

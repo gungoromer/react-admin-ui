@@ -26,9 +26,6 @@ const Login = () => {
     await repository
       .login(formData.mail, formData.password)
       .then((response: BaseResponse<IUserLoginResponse>) => {
-        console.log("login page then");
-        console.log(response);
-
         if (response.Status == 0) {
           setErrorMessage(response.Message ? response.Message : "");
           return;

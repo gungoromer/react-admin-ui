@@ -53,9 +53,9 @@ const DataTable = (props: Props) => {
           },
         }}
         pageSizeOptions={[5, 10, 50, 100]}
-        checkboxSelection
-        disableRowSelectionOnClick
-        disableColumnFilter
+        checkboxSelection={false}
+        disableRowSelectionOnClick={true}
+        disableColumnFilter={false}
         disableDensitySelector
         disableColumnSelector
       />

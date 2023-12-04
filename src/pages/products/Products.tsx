@@ -1,53 +1,52 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Products.scss";
 import DataTable from "../../components/dataTable/DataTable";
 import Add from "../../components/add/Add";
 import { GridColDef } from "@mui/x-data-grid";
-import { products } from "../../data";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { Product, productSelector } from "./ProductSlice";
 
 const columns: GridColDef[] = [
-  { field: "id", headerName: "ID", width: 90 },
+  { field: "Id", headerName: "Id", width: 90 },
   {
-    field: "img",
-    headerName: "Image",
-    width: 100,
-    renderCell: (params) => {
-      return <img src={params.row.img || "/noavatar.png"} alt="" />;
-    },
-  },
-  {
-    field: "title",
+    field: "Title",
     type: "string",
     headerName: "Title",
     width: 250,
   },
   {
-    field: "color",
+    field: "Subtitle",
     type: "string",
-    headerName: "Color",
+    headerName: "Subtitle",
     width: 150,
   },
   {
-    field: "price",
+    field: "ListPrice",
     type: "string",
+    headerName: "ListPrice",
+    width: 200,
+  },
+  {
+    field: "Price",
     headerName: "Price",
-    width: 200,
-  },
-  {
-    field: "producer",
-    headerName: "Producer",
     type: "string",
     width: 200,
   },
   {
-    field: "createdAt",
-    headerName: "Created At",
+    field: "ProductCategory.Name",
+    headerName: "Product Category",
     width: 200,
     type: "string",
   },
   {
-    field: "inStock",
-    headerName: "In Stock",
+    field: "Barcode",
+    headerName: "Barcode",
+    width: 200,
+    type: "string",
+  },
+  {
+    field: "IsActive",
+    headerName: "IsActive",
     width: 150,
     type: "boolean",
   },
@@ -55,16 +54,15 @@ const columns: GridColDef[] = [
 
 const Products = () => {
   const [open, setOpen] = useState(false);
-
-  // TEST THE API
-
-  // const { isLoading, data } = useQuery({
-  //   queryKey: ["allproducts"],
-  //   queryFn: () =>
-  //     fetch("http://localhost:8800/api/products").then(
-  //       (res) => res.json()
-  //     ),
-  // });
+  const [products, setProducts] = useState<Array<Product>>([]);
+  const selectedProducts = useAppSelector(productSelector);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    setProducts(selectedProducts);
+    return () => {
+      console.log("component unmounting...");
+    };
+  }, [selectedProducts]);
 
   return (
     <div className="products">
@@ -72,14 +70,9 @@ const Products = () => {
         <h1>Products</h1>
         <button onClick={() => setOpen(true)}>Add New Products</button>
       </div>
-      <DataTable slug="products" columns={columns} rows={products} />
-      {/* TEST THE API */}
 
-      {/* {isLoading ? (
-        "Loading..."
-      ) : (
-        <DataTable slug="products" columns={columns} rows={data} />
-      )} */}
+      <DataTable slug="products" columns={columns} rows={products} />
+
       {open && <Add slug="product" columns={columns} setOpen={setOpen} />}
     </div>
   );
