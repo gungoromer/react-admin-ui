@@ -9,6 +9,11 @@ type Props = {
 const DropdownButton = (props: Props) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+  const handleSignOut = () => {
+    localStorage.removeItem("token");
+    window.location.reload();
+  };
+
   return (
     <div className="dropdown">
       <a className="dropbtn" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
@@ -26,7 +31,7 @@ const DropdownButton = (props: Props) => {
           <img src="/profile.svg" alt="" />
           Profile
         </a>
-        <a href="/signout">
+        <a href="#" onClick={handleSignOut}>
           <img src="/settings.svg" alt="" />
           Sign Out
         </a>

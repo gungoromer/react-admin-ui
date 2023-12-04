@@ -52,10 +52,8 @@ const Login = () => {
     <div className="login">
       <div className="loginHeader">
         <img src="/logo.svg" alt="" />
-        <h1>Login Page</h1>
+        <h1>React Tutorials</h1>
       </div>
-      {errorMessage && <p className="errorMessage">{errorMessage}</p>}
-      {user && <Navigate to="/" />}
 
       <form action="" onSubmit={handleFormSubmit}>
         <input
@@ -74,6 +72,8 @@ const Login = () => {
         />
         <input type="submit" value="Login" />
       </form>
+      {errorMessage && <p className="errorMessage">{errorMessage}</p>}
+      {user && <Navigate to="/" />}
     </div>
   );
 };

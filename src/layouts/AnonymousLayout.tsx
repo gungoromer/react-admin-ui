@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import "./AnonymousLayout.scss";
 
 const AnonymousLayout = () => {
   return (
