@@ -65,7 +65,7 @@ const Users = () => {
           setData(response.Value ?? []);
         }
       });
-  }, []);
+  }, [data]);
 
   return (
     <div className="users">
