@@ -1,6 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 import { BaseResponse } from "../../shared/Api/Abstract/BaseResponse";
+import Product from "../product/Product";
+import ProductRepository from "../../shared/Api/Product/ProductRepository";
+import { BaseGetManyRequest } from "../../shared/Api/Abstract/BaseGetManyRequest";
 
 export interface ProductCategory {
   Id: string;
@@ -17,6 +20,7 @@ export interface Product {
   IsActive: boolean;
   ProductCategory: ProductCategory;
 }
+
 export interface ProductState {
   loading: boolean;
   products: Array<Product>;
@@ -28,13 +32,19 @@ const initialState: ProductState = {
   error: undefined,
 };
 
-export const fetchProducts = createAsyncThunk("products/fetchProducts", () => {
-  const res = fetch(
-    "https://api-dev.wsrlife.com/api/product?skip=0&take=1000"
-  ).then((data) => data.json());
+export const fetchProducts = createAsyncThunk(
+  "products/fetchProducts",
+  async (getManyRequest: BaseGetManyRequest) => {
+    const repository: ProductRepository = new ProductRepository();
 
-  return res;
-});
+    const res = await repository.getMany<Product>(
+      getManyRequest.skip,
+      getManyRequest.take
+    );
+
+    return res;
+  }
+);
 
 export const productSlice = createSlice({
   name: "products",

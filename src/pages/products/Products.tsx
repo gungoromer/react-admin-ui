@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import "./Products.scss";
 import DataTable from "../../components/dataTable/DataTable";
 import Add from "../../components/add/Add";
 import { GridColDef } from "@mui/x-data-grid";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Product, fetchProducts, productSelector } from "./ProductSlice";
+import { BaseGetManyRequest } from "../../shared/Api/Abstract/BaseGetManyRequest";
 
 const columns: GridColDef[] = [
   { field: "Id", headerName: "Id", width: 90 },
@@ -60,13 +61,22 @@ const Products = () => {
   const [error, setError] = useState<string | undefined>(undefined);
   const selectedProducts = useAppSelector(productSelector);
   const dispatch = useAppDispatch();
+
+  //
   useEffect(() => {
     setLoading(selectedProducts.loading);
     setError(selectedProducts.error);
     setProducts(selectedProducts.products);
   }, [selectedProducts]);
+
+  //this function for fetch data from api when page load
+  useEffect(() => {
+    dispatch(fetchProducts(new BaseGetManyRequest(0, 1000)));
+  }, []);
+
+  //this function for fetch data from api when click fetch button
   function handleFetchProduct() {
-    dispatch(fetchProducts());
+    dispatch(fetchProducts(new BaseGetManyRequest(0, 1000)));
   }
 
   return (
@@ -87,7 +97,12 @@ const Products = () => {
         Fetch
       </button>
 
-      {/* <DataTable slug="products" columns={columns} rows={products} /> */}
+      <DataTable
+        slug="products"
+        columns={columns}
+        rows={products}
+        IsExistActionColumns={true}
+      />
 
       {open && <Add slug="product" columns={columns} setOpen={setOpen} />}
     </div>

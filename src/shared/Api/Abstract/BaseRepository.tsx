@@ -13,7 +13,7 @@ export abstract class BaseRepository
   extends HttpClient
   implements IBaseRepository
 {
-  protected collection: string | undefined;
+  public collection: string | undefined;
 
   public async get<T>(id: string): Promise<BaseResponse<T>> {
     const instance = this.createInstance();
