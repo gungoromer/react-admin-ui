@@ -1,21 +1,22 @@
 import { GridColDef } from "@mui/x-data-grid";
 import DataTable from "../../components/dataTable/DataTable";
 import "./Users.scss";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import Add from "../../components/add/Add";
 import UserRepository from "../../shared/Api/User/UserRepository";
 import { IUserGetResponse } from "../../shared/Api/User/Response/IUserGetResponse";
 import { BaseResponse } from "../../shared/Api/Abstract/BaseResponse";
 
 const columns: GridColDef[] = [
-  { field: "id", headerName: "ID", width: 90 },
+  { field: "Id", headerName: "ID", width: 90 },
   {
     field: "SmallProfileImageUrl",
     headerName: "Avatar",
     width: 100,
     renderCell: (params) => {
       return (
-        <img src={params.row.SmallProfileImageUrl || "/noavatar.png"} alt="" />
+        // <img src={params.row.SmallProfileImageUrl || "/noavatar.png"} alt="" />
+        <img src="/noavatar.png" alt={params.row.SmallProfileImageUrl} />
       );
     },
   },
@@ -65,7 +66,7 @@ const Users = () => {
           setData(response.Value ?? []);
         }
       });
-  }, [data]);
+  }, []);
 
   return (
     <div className="users">
@@ -74,7 +75,12 @@ const Users = () => {
         <button onClick={() => setOpen(true)}>Add New User</button>
       </div>
 
-      <DataTable slug="user" columns={columns} rows={data} />
+      <DataTable
+        slug="user"
+        columns={columns}
+        rows={data}
+        IsExistActionColumns={false}
+      />
 
       {open && <Add slug="user" columns={columns} setOpen={setOpen} />}
     </div>

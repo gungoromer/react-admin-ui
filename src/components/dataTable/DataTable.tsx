@@ -6,6 +6,7 @@ type Props = {
   columns: GridColDef[];
   rows: object[];
   slug: string;
+  IsExistActionColumns?: boolean;
 };
 
 const DataTable = (props: Props) => {
@@ -13,7 +14,7 @@ const DataTable = (props: Props) => {
     //delete the item
   };
 
-  const actionColumn: GridColDef = {
+  let actionColumn: GridColDef = {
     field: "action",
     headerName: "Action",
     width: 200,
@@ -30,6 +31,10 @@ const DataTable = (props: Props) => {
       );
     },
   };
+
+  if (props.IsExistActionColumns === false) {
+    actionColumn = [];
+  }
 
   return (
     <div className="dataTable">
