@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
-import { BaseResponse } from "../../shared/Api/Abstract/BaseResponse";
+import { BaseResponse } from "../../shared/Api/Abstract/Response/BaseResponse";
 import Product from "../product/Product";
-import ProductRepository from "../../shared/Api/Product/ProductRepository";
-import { BaseGetManyRequest } from "../../shared/Api/Abstract/BaseGetManyRequest";
+import ProductApi from "../../shared/Api/Product/ProductApi";
+import { BaseGetManyRequest } from "../../shared/Api/Abstract/Request/BaseGetManyRequest";
 
 export interface ProductCategory {
   Id: string;
@@ -35,7 +35,7 @@ const initialState: ProductState = {
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async (getManyRequest: BaseGetManyRequest) => {
-    const repository: ProductRepository = new ProductRepository();
+    const repository: ProductApi = new ProductApi();
 
     const res = await repository.getMany<Product>(
       getManyRequest.skip,

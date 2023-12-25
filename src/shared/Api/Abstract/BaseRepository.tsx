@@ -1,5 +1,5 @@
 import { HttpClient } from "./HttpClient";
-import { BaseResponse } from "./BaseResponse";
+import { BaseResponse } from "./Response/BaseResponse";
 
 export interface IBaseRepository {
   get<T>(id: any): Promise<BaseResponse<T>>;

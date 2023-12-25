@@ -1,8 +1,8 @@
 import "./Login.scss";
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
-import UserRepository from "../../shared/Api/User/UserRepository";
-import { BaseResponse } from "../../shared/Api/Abstract/BaseResponse";
+import UserRepository from "../../shared/Api/User/UserApi";
+import { BaseResponse } from "../../shared/Api/Abstract/Response/BaseResponse";
 import { IUserLoginResponse } from "../../shared/Api/User/Response/IUserLoginResponse";
 
 const Login = () => {

@@ -1,8 +1,8 @@
 import { BaseRepository } from "../Abstract/BaseRepository";
-import { BaseResponse } from "../Abstract/BaseResponse";
+import { BaseResponse } from "../Abstract/Response/BaseResponse";
 import { IUserLoginResponse } from "./Response/IUserLoginResponse";
 
-class UserRepository extends BaseRepository {
+class UserApi extends BaseRepository {
   constructor() {
     super();
     super.collection = "user";
@@ -50,4 +50,4 @@ class UserRepository extends BaseRepository {
   }
 }
 
-export default UserRepository;
+export default UserApi;

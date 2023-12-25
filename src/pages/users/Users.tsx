@@ -3,9 +3,9 @@ import DataTable from "../../components/dataTable/DataTable";
 import "./Users.scss";
 import { useState, useEffect } from "react";
 import Add from "../../components/add/Add";
-import UserRepository from "../../shared/Api/User/UserRepository";
+import UserRepository from "../../shared/Api/User/UserApi";
 import { IUserGetResponse } from "../../shared/Api/User/Response/IUserGetResponse";
-import { BaseResponse } from "../../shared/Api/Abstract/BaseResponse";
+import { BaseResponse } from "../../shared/Api/Abstract/Response/BaseResponse";
 
 const columns: GridColDef[] = [
   { field: "Id", headerName: "ID", width: 90 },

@@ -5,7 +5,7 @@ import DataTable from "../../components/dataTable/DataTable";
 import Add from "../../components/add/Add";
 import { GridColDef } from "@mui/x-data-grid";
 import { Product, fetchProducts, productSelector } from "./ProductSlice";
-import { BaseGetManyRequest } from "../../shared/Api/Abstract/BaseGetManyRequest";
+import { BaseGetManyRequest } from "../../shared/Api/Abstract/Request/BaseGetManyRequest";
 
 const columns: GridColDef[] = [
   { field: "Id", headerName: "Id", width: 90 },
@@ -32,6 +32,12 @@ const columns: GridColDef[] = [
     headerName: "Price",
     type: "string",
     width: 200,
+  },
+  {
+    field: "CurrencyCode",
+    headerName: "Currency",
+    width: 200,
+    type: "string",
   },
   {
     field: "ProductCategory.Name",
@@ -88,20 +94,20 @@ const Products = () => {
 
       {loading && <div>Loading...</div>}
       {error && <div>Error: {error}</div>}
-      {products?.map((product) => (
+      {/* {products?.map((product) => (
         <li key={product.Id}>
           {product.Id} | {product.Title} | {product.Price}
         </li>
       ))}
       <button className="btn" onClick={handleFetchProduct}>
         Fetch
-      </button>
+      </button> */}
 
       <DataTable
         slug="products"
         columns={columns}
         rows={products}
-        IsExistActionColumns={true}
+        IsExistActionColumns={false}
       />
 
       {open && <Add slug="product" columns={columns} setOpen={setOpen} />}
