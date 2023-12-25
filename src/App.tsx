@@ -18,6 +18,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import MainLayout from "./layouts/MainLayout";
 import AnonymousLayout from "./layouts/AnonymousLayout";
 import NotFound from "./pages/notfoundpage/NotFound";
+import ProductCategoryList from "./pages/productcategory/ProductCategory";
 
 const queryClient = new QueryClient();
 
@@ -46,6 +47,10 @@ function App() {
         {
           path: "/products",
           element: <Products />,
+        },
+        {
+          path: "/productcategorylist",
+          element: <ProductCategoryList />,
         },
         {
           path: "/users/:id",
