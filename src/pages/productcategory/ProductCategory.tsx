@@ -10,6 +10,7 @@ import {
   productCategorySelector,
 } from "./ProductCategorySlice";
 import { BaseGetManyRequest } from "../../shared/Api/Abstract/Request/BaseGetManyRequest";
+import ProductCategoryAdd from "../productcategoryadd/ProductCategoryAdd";
 
 const columns: GridColDef[] = [
   { field: "Id", headerName: "Id", width: 90 },
@@ -34,7 +35,7 @@ const columns: GridColDef[] = [
 ];
 
 const ProductCategoryList = () => {
-  const [open, setOpen] = useState(false);
+  const [openAddModal, setOpenAddModal] = useState(false);
 
   const [productcategorylist, setProductCategoryList] = useState<
     Array<ProductCategory>
@@ -59,7 +60,9 @@ const ProductCategoryList = () => {
     <div className="productcategorylist">
       <div className="info">
         <h1>Product Category List</h1>
-        <button onClick={() => setOpen(true)}>Add New Product Category</button>
+        <button onClick={() => setOpenAddModal(true)}>
+          Add New Product Category
+        </button>
       </div>
 
       {loading && <div>Loading...</div>}
@@ -72,9 +75,7 @@ const ProductCategoryList = () => {
         IsExistActionColumns={true}
       />
 
-      {open && (
-        <Add slug="productcategory" columns={columns} setOpen={setOpen} />
-      )}
+      {openAddModal && <ProductCategoryAdd setOpenAddModal={setOpenAddModal} />}
     </div>
   );
 };

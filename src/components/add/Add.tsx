@@ -12,27 +12,28 @@ type Props = {
 const Add = (props: Props) => {
   // TEST THE API
 
-  const queryClient = useQueryClient();
+  //const queryClient = useQueryClient();
 
-  const mutation = useMutation({
-    mutationFn: () => {
-      var productCateogryApi = new ProductCategoryApi();
-      return productCateogryApi.create({
-        Name: "test",
-        IsActive: true,
-      });
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries([`all${props.slug}s`]);
-    },
-  });
+  // const mutation = useMutation({
+  //   mutationFn: () => {
+  //     var productCateogryApi = new ProductCategoryApi();
+  //     return productCateogryApi.create({
+  //       Name: "test",
+  //       IsActive: true,
+  //     });
+  //   },
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries([`all${props.slug}s`]);
+  //   },
+  // });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    console.log(e);
     //add new item
-    mutation.mutate();
-    props.setOpen(false);
+    //mutation.mutate();
+    //props.setOpen(false);
   };
   return (
     <div className="add">
